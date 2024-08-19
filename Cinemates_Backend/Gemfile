@@ -38,8 +38,10 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem 'dotenv'
 end
 
 gem 'devise'
 gem 'devise-jwt'
 gem 'jsonapi-serializer'
+gem "letter_opener", group: :development
