@@ -4,8 +4,8 @@ import { BsCameraReelsFill, BsSearch, BsList } from "react-icons/bs";
 const Navbar = () => {
     return (
 
-        <div className="bg-base-100 px-5">
-            <div className="flex justify-between items-center py-2">
+        <div className="bg-base-100">
+            <div className="flex justify-between items-center max-w-screen-2xl m-auto py-2">
                 <div className="flex items-center">
                     <p className="text-xl font-semibold flex items-center">
                         <BsCameraReelsFill className="mr-2" />
