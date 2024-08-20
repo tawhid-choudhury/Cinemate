@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, path_names: {
+    sign_in: 'sign_in',
+    sign_out: 'sign_out',
     registration: 'sign_up'
   },controllers: {
     sessions: 'users/sessions',
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
+  get '/status', to: proc { [200, {}, ['OK']] }
   # Defines the root path route ("/")
   # root "posts#index"
 end
