@@ -10,7 +10,8 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     if Rails.env.development?
       origins '*'
     elsif Rails.env.production?
-      origins 'www.our-hosted-website.com'
+      # origins 'www.our-hosted-website.com'
+      origins 'http://localhost:5173/'
     end
 
     resource '*',
