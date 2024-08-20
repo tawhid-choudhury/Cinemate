@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  get '/status', to: proc { [200, {}, ['OK']] }
+  get '/status', to: proc { [200, { 'Content-Type' => 'application/json' }, [{ status: 'OK', code: 200 }.to_json]] }
   # Defines the root path route ("/")
   # root "posts#index"
 end
