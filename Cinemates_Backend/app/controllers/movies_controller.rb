@@ -7,7 +7,10 @@ class MoviesController < ApplicationController
     api_key = ENV['OMDB_API_KEY']
 
     if movie_name.blank?
-      render json: { error: "Movie name cannot be empty" }, status: :unprocessable_entity
+      render json:
+               { code: 422,
+                 error: "Movie name cannot be empty"
+               }, status: :unprocessable_entity
       return
     end
 
@@ -71,6 +74,7 @@ class MoviesController < ApplicationController
 
     movies_with_age = movies.map do |movie|
       {
+        id: movie.id,
         name: movie.title,
         genres: movie.genre,
         age: movie.age,
