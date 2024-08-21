@@ -1,34 +1,32 @@
 # frozen_string_literal: true
 
 class Users::PasswordsController < Devise::PasswordsController
-  # GET /resource/password/new
-  # def new
-  #   super
-  # end
+  def create
+    self.resource = resource_class.send_reset_password_instructions(resource_params)
+    yield resource if block_given?
 
-  # POST /resource/password
-  # def create
-  #   super
-  # end
+    if successfully_sent?(resource)
+      render json: {
+        code: 200,
+        message: "You will receive an email with instructions on how to reset your password in a few minutes."
+      }, status: :ok
+    else
+      render json: {
+        code: 404,
+        error: "Email not found"
+      }, status: :not_found
+    end
+  end
 
-  # GET /resource/password/edit?reset_password_token=abcdef
-  # def edit
-  #   super
-  # end
+  def update
+    self.resource = resource_class.reset_password_by_token(resource_params)
+    yield resource if block_given?
 
-  # PUT /resource/password
-  # def update
-  #   super
-  # end
-
-  # protected
-
-  # def after_resetting_password_path_for(resource)
-  #   super(resource)
-  # end
-
-  # The path used after sending reset password instructions
-  # def after_sending_reset_password_instructions_path_for(resource_name)
-  #   super(resource_name)
-  # end
+    if resource.errors.empty?
+      resource.unlock_access! if unlockable?(resource)
+      render json: { message: "Your password has been changed successfully." }, status: :ok
+    else
+      render json: { error: resource.errors.full_messages.join(", ") }, status: :unprocessable_entity
+    end
+  end
 end
