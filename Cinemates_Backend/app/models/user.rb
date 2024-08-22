@@ -11,4 +11,6 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
   validates :agree_terms_service, acceptance: { accept: true }
 
+  has_many :watchlists
+
 end

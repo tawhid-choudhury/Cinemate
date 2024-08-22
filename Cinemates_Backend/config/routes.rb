@@ -25,5 +25,7 @@ Rails.application.routes.draw do
     collection do
       get :featured_today
     end
+    resources :watchlists, only: [:create]
   end
+  resources :watchlists, only: [:index, :destroy]
 end
