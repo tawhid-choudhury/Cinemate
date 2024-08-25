@@ -1,5 +1,10 @@
 class MoviesController < ApplicationController
 
+  def index
+    @movies = Movie.all
+    render json: @movies
+  end
+
 
   def create
     movie_name = params[:movie_name]

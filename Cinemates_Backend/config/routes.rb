@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get '/status', to: proc { [200, { 'Content-Type' => 'application/json' }, [{ status: 'OK', code: 200 }.to_json]] }
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :movies, only: [:create] do
+  resources :movies, only: [:create, :index] do
     collection do
       get :featured_today
     end
