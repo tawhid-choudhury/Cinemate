@@ -51,9 +51,6 @@ class Users::SessionsController < Devise::SessionsController
     end
 
     if current_user
-      # Clear the remember_created_at column
-      current_user.update(remember_created_at: nil)
-
       render json: {
         status: 200,
         message: 'Logged out successfully.'

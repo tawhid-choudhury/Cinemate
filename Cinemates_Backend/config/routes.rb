@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   },controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
-    # passwords: 'users/passwords'
+    passwords: 'users/passwords'
   }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -18,7 +18,14 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  get '/status', to: proc { [200, {}, ['OK']] }
+  get '/status', to: proc { [200, { 'Content-Type' => 'application/json' }, [{ status: 'OK', code: 200 }.to_json]] }
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :movies, only: [:create, :index] do
+    collection do
+      get :featured_today
+    end
+    resources :watchlists, only: [:create]
+  end
+  resources :watchlists, only: [:index, :destroy]
 end
