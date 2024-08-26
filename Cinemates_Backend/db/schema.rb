@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_22_095526) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_26_074326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_22_095526) do
     t.string "response", default: "no-info", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "movie_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_posts_on_movie_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,6 +92,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_22_095526) do
     t.index ["user_id"], name: "index_watchlists_on_user_id"
   end
 
+  add_foreign_key "posts", "movies"
+  add_foreign_key "posts", "users"
   add_foreign_key "watchlists", "movies"
   add_foreign_key "watchlists", "users"
 end

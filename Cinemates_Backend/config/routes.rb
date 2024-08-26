@@ -27,5 +27,8 @@ Rails.application.routes.draw do
     end
     resources :watchlists, only: [:create]
   end
+
   resources :watchlists, only: [:index, :destroy]
+
+  resources :posts
 end
