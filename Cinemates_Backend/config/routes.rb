@@ -19,8 +19,10 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   get '/status', to: proc { [200, { 'Content-Type' => 'application/json' }, [{ status: 'OK', code: 200 }.to_json]] }
-  # Defines the root path route ("/")
-  # root "posts#index"
+
+  ## All the routes for FE,
+
+  # routes for movies, todays featured movies, add to watchlist
   resources :movies, only: [:create, :index] do
     collection do
       get :featured_today
@@ -28,7 +30,10 @@ Rails.application.routes.draw do
     resources :watchlists, only: [:create]
   end
 
+  # routes for all the current user watchlists, remove movie from watchlists
   resources :watchlists, only: [:index, :destroy]
 
-  resources :posts
+  # routes for all the posts, post creation
+  resources :posts, only: [:index, :create]
+  resources :cinemates_ratings, only: [:create, :update]
 end

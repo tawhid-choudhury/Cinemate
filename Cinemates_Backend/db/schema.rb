@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_26_074326) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_27_170445) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cinemates_ratings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "movie_id", null: false
+    t.integer "cm_rating", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id", "user_id"], name: "index_cinemates_ratings_on_movie_id_and_user_id", unique: true
+    t.index ["movie_id"], name: "index_cinemates_ratings_on_movie_id"
+    t.index ["user_id"], name: "index_cinemates_ratings_on_user_id"
+  end
 
   create_table "movies", force: :cascade do |t|
     t.string "imdb_id", default: "no-info", null: false
@@ -39,6 +50,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_26_074326) do
     t.string "response", default: "no-info", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "avg_cm_rating", default: 0.0, null: false
+    t.integer "avg_cm_recommendation", default: 0, null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -92,6 +105,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_26_074326) do
     t.index ["user_id"], name: "index_watchlists_on_user_id"
   end
 
+  add_foreign_key "cinemates_ratings", "movies"
+  add_foreign_key "cinemates_ratings", "users"
   add_foreign_key "posts", "movies"
   add_foreign_key "posts", "users"
   add_foreign_key "watchlists", "movies"

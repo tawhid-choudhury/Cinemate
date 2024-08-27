@@ -82,6 +82,7 @@ class MoviesController < ApplicationController
         id: movie.id,
         name: movie.title,
         genres: movie.genre,
+        imdb_rating: movie.imdb_rating,
         age: movie.age,
         poster: movie.poster
       }
