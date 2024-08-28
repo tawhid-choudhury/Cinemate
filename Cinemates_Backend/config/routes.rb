@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :movies, only: [:create, :index] do
     collection do
       get :featured_today
+      get :top_rated
     end
     resources :watchlists, only: [:create]
   end

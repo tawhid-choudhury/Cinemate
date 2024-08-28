@@ -91,4 +91,13 @@ class MoviesController < ApplicationController
     render json: movies_with_age, status: :ok
   end
 
+  def top_rated
+    @top_rated_movies = Movie.order(avg_cm_rating: :desc)
+    render json: {
+      code: 200,
+      message: "Top rated movie fetched successfully",
+      data: @top_rated_movies
+    }, status: :ok
+  end
+
 end
