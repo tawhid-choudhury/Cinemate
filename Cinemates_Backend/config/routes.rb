@@ -22,11 +22,13 @@ Rails.application.routes.draw do
 
   ## All the routes for FE,
 
-  # routes for movies, todays featured movies, add to watchlist
+  # routes for movies, today's featured movies, add to watchlist,
+  # top rated(cm rating), trending now
   resources :movies, only: [:create, :index] do
     collection do
       get :featured_today
       get :top_rated
+      get :trending_now
     end
     resources :watchlists, only: [:create]
   end
@@ -36,5 +38,7 @@ Rails.application.routes.draw do
 
   # routes for all the posts, post creation
   resources :posts, only: [:index, :create]
+
+  # routes for all the cinemate rating creation and update
   resources :cinemates_ratings, only: [:create, :update]
 end
