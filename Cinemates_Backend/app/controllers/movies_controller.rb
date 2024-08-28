@@ -100,4 +100,16 @@ class MoviesController < ApplicationController
     }, status: :ok
   end
 
+  def trending_now
+    one_week_ago = 1.week.ago
+    trending_movies = Movie.joins(:posts)
+                           .where('posts.created_at >= ?', one_week_ago)
+                           .group('movies.id')
+                           .order('COUNT(posts.id) DESC')
+                           .select('movies.*, COUNT(posts.id) as post_count')
+                           # .limit(10)
+
+    render json: { code: 200, message: "Trending movies fetched successfully", data: trending_movies }, status: :ok
+  end
+
 end
