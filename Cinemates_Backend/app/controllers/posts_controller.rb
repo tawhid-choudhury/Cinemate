@@ -17,6 +17,11 @@ class PostsController < ApplicationController
       return
     end
 
+    if current_user.posts.exists?(movie_id: post_params[:movie_id])
+      render json: { code: 422, error: "You have already posted about this movie" }, status: :unprocessable_entity
+      return
+    end
+
     @post = current_user.posts.new(post_params)
     if @post.save
       render json: @post, status: :created
