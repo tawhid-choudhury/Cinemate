@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_27_170445) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_28_134338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_27_170445) do
     t.index ["movie_id", "user_id"], name: "index_cinemates_ratings_on_movie_id_and_user_id", unique: true
     t.index ["movie_id"], name: "index_cinemates_ratings_on_movie_id"
     t.index ["user_id"], name: "index_cinemates_ratings_on_user_id"
+  end
+
+  create_table "movie_post_counts", force: :cascade do |t|
+    t.bigint "movie_id", null: false
+    t.integer "post_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movie_post_counts_on_movie_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -107,6 +115,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_27_170445) do
 
   add_foreign_key "cinemates_ratings", "movies"
   add_foreign_key "cinemates_ratings", "users"
+  add_foreign_key "movie_post_counts", "movies"
   add_foreign_key "posts", "movies"
   add_foreign_key "posts", "users"
   add_foreign_key "watchlists", "movies"
