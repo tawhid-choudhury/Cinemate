@@ -1,4 +1,5 @@
 import FeaturedToday from "../../HomepageComponents/CardsCarousel/FeaturedToday";
+import Toprated from "../../HomepageComponents/CardsCarousel/Toprated";
 import Carousel from "../../HomepageComponents/Carousel/Carousel";
 import RecentFeedCard from "./RecentFeedCard";
 
@@ -54,7 +55,7 @@ const Home = () => {
             </div>
             <div>
                 <h1 className="text-5xl font-semibold py-10">Top Rated</h1>
-                {/* <CardCarousel /> */}
+                <Toprated />
             </div>
             <div>
                 <h1 className="text-5xl font-semibold py-10">Most Recommended</h1>
