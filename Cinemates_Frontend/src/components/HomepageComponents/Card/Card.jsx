@@ -21,7 +21,7 @@ const Card = ({ title, poster, imdbRating, age, genres }) => {
                     </div>
                     <div>
                         <button className="btn bg-black btn-xs font-bold text-white">Genre :</button>
-                        {genres.split(', ').map((genre, index) => (
+                        {genres?.split(', ').map((genre, index) => (
                             <button key={index} className="btn btn-outline btn-xs font-bold mx-1">{genre}</button>
                         ))}
                     </div>
@@ -33,11 +33,11 @@ const Card = ({ title, poster, imdbRating, age, genres }) => {
 
 // PropTypes validation
 Card.propTypes = {
-    title: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    imdbRating: PropTypes.number.isRequired,
-    age: PropTypes.number.isRequired,
-    genres: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    poster: PropTypes.string,
+    imdbRating: PropTypes.number,
+    age: PropTypes.number,
+    genres: PropTypes.string,
 };
 
 export default Card;

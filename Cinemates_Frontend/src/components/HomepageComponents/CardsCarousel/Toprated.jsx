@@ -9,17 +9,16 @@ import Card from '../Card/Card';
 
 
 // Fetching featured movies function
-const fetchFeaturedMovies = async () => {
-    const response = await axios.get('https://cinemate-backend-development.onrender.com/movies/featured_today');
-    console.log(response.data)
-    return response.data;
+const fetchTopRated = async () => {
+    const response = await axios.get('https://cinemate-backend-development.onrender.com/movies/top_rated');
+    console.log(response.data.data)
+    return response.data.data;
 };
-
-const FeaturedToday = () => {
+const Toprated = () => {
     // Using TanStack Query with object syntax (v5)
     const { data, isLoading, error } = useQuery({
-        queryKey: ['featuredMovies'],
-        queryFn: fetchFeaturedMovies,
+        queryKey: ['topRated'],
+        queryFn: fetchTopRated,
     });
 
     // Log the received data to the console
@@ -68,4 +67,4 @@ const FeaturedToday = () => {
     );
 };
 
-export default FeaturedToday;
+export default Toprated;
