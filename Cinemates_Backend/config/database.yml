@@ -23,6 +23,8 @@ default: &default
 development:
   <<: *default
   database: cinemates_backend_development
+  username: postgres
+  password: postroot
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -80,6 +82,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   database: cinemates_backend_production
   username: cinemates_backend
   password: <%= ENV["CINEMATES_BACKEND_DATABASE_PASSWORD"] %>

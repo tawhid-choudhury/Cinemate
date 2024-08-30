@@ -8,6 +8,8 @@ import "./index.css";
 import Root from "./components/Root/Root";
 import Home from "./components/Pages/Home/Home";
 import { QueryClient, QueryClientProvider, } from '@tanstack/react-query'
+import AboutUs from "./components/Pages/Home/AboutUs";
+import AboutCineMates from "./components/Pages/Home/AboutCinemates";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,12 @@ const router = createBrowserRouter([
       }, {
         path: '/signin',
         element: <>Signin</>
+      },{
+        path: '/about_us',
+        element: <AboutUs/>
+      },{
+        path: '/about_cinemates',
+        element: <AboutCineMates/>
       },
     ]
   },

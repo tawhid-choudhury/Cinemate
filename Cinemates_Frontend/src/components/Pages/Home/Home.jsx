@@ -2,6 +2,7 @@ import FeaturedToday from "../../HomepageComponents/CardsCarousel/FeaturedToday"
 import Toprated from "../../HomepageComponents/CardsCarousel/Toprated";
 import Carousel from "../../HomepageComponents/Carousel/Carousel";
 import RecentFeedCard from "./RecentFeedCard";
+//import Footer from "../../HomepageComponents/Footer/Footer"; // Adjust the path as u want
 
 const Home = () => {
     const cardData = {
@@ -61,6 +62,9 @@ const Home = () => {
                 <h1 className="text-5xl font-semibold py-10">Most Recommended</h1>
                 {/* <CardCarousel /> */}
             </div>
+
+            {/* Footer is included here */}
+            {/* <Footer /> */}
         </div>
     );
 };
