@@ -10,6 +10,7 @@ class CinematesRatingsController < ApplicationController
 
     @cm_rating = current_user.cinemates_ratings.new(cm_rating_params)
     if @cm_rating.save
+      # have to use active job
       update_movie_avg_cm_rating(@cm_rating.movie_id)
       render json: { code: 201, message: "Rating created successfully", data: @cm_rating }, status: :created
     else

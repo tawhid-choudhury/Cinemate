@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_28_145856) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_30_141625) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,12 +73,22 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_28_145856) do
     t.index ["user_id"], name: "index_post_comments_on_user_id"
   end
 
+  create_table "post_likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_post_likes_on_post_id"
+    t.index ["user_id"], name: "index_post_likes_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "movie_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "total_post_comments", default: 0, null: false
     t.index ["movie_id"], name: "index_posts_on_movie_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -129,6 +139,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_28_145856) do
   add_foreign_key "movie_post_counts", "movies"
   add_foreign_key "post_comments", "posts"
   add_foreign_key "post_comments", "users"
+  add_foreign_key "post_likes", "posts"
+  add_foreign_key "post_likes", "users"
   add_foreign_key "posts", "movies"
   add_foreign_key "posts", "users"
   add_foreign_key "watchlists", "movies"

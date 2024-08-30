@@ -7,6 +7,8 @@ class PostCommentsController < ApplicationController
     @post_comment.user = current_user
 
     if @post_comment.save
+      # have to use active job
+      update_post_comment_count(@post.id)
       render json: {
         code: 201,
         message: "Comment created successfully",
@@ -32,6 +34,12 @@ class PostCommentsController < ApplicationController
 
   def post_comment_params
     params.require(:post_comment).permit(:content)
+  end
+
+  def update_post_comment_count(post_id)
+    post = Post.find(post_id)
+    total_comments = post.post_comments.count
+    post.update(total_post_comments: total_comments)
   end
 
 end

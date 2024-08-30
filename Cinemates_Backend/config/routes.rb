@@ -39,6 +39,10 @@ Rails.application.routes.draw do
   # routes for all the posts, post creation
   resources :posts, only: [:index, :create] do
     resources :post_comments, only: [:create]
+    member do
+      post :like_post
+      delete :dislike_post
+    end
   end
 
   # routes for all the cinemate rating creation and update
