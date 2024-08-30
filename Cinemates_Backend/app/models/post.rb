@@ -2,6 +2,7 @@ class Post < ApplicationRecord
 
   belongs_to :user
   belongs_to :movie
+  has_many :post_comments, dependent: :destroy
 
   after_create :increment_movie_post_count
   after_destroy :decrement_movie_post_count

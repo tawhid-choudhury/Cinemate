@@ -37,7 +37,9 @@ Rails.application.routes.draw do
   resources :watchlists, only: [:index, :destroy]
 
   # routes for all the posts, post creation
-  resources :posts, only: [:index, :create]
+  resources :posts, only: [:index, :create] do
+    resources :post_comments, only: [:create]
+  end
 
   # routes for all the cinemate rating creation and update
   resources :cinemates_ratings, only: [:create, :update]
