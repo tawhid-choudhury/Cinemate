@@ -1,7 +1,7 @@
 import FeaturedToday from "../../HomepageComponents/CardsCarousel/FeaturedToday";
 import Carousel from "../../HomepageComponents/Carousel/Carousel";
 import RecentFeedCard from "./RecentFeedCard";
-import Footer from "../../HomepageComponents/Footer/Footer"; // Adjust the path as u want
+//import Footer from "../../HomepageComponents/Footer/Footer"; // Adjust the path as u want
 
 const Home = () => {
     const cardData = {
@@ -63,7 +63,7 @@ const Home = () => {
             </div>
 
             {/* Footer is included here */}
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 };
