@@ -80,8 +80,8 @@ class MoviesController < ApplicationController
     movies_with_age = movies.map do |movie|
       {
         id: movie.id,
-        name: movie.title,
-        genres: movie.genre,
+        title: movie.title,
+        genre: movie.genre,
         imdb_rating: movie.imdb_rating,
         age: movie.age,
         poster: movie.poster
