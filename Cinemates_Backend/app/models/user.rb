@@ -16,5 +16,6 @@ class User < ApplicationRecord
   has_many :cinemates_ratings, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :post_likes, dependent: :destroy
+  has_many :cinemates_recommendations, dependent: :destroy
 
 end

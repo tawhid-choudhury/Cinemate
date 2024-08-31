@@ -3,6 +3,7 @@ class Movie < ApplicationRecord
   has_many :watchlists, dependent: :destroy
   has_many :cinemates_ratings, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :cinemates_recommendations, dependent: :destroy
 
   def age
     return 0 unless released

@@ -46,5 +46,6 @@ Rails.application.routes.draw do
   end
 
   # routes for all the cinemate rating creation and update
-  resources :cinemates_ratings, only: [:create, :update]
+  resources :cinemates_ratings, only: [:index, :create, :update]
+  resources :cinemates_recommendations, only: [:index, :create, :destroy]
 end

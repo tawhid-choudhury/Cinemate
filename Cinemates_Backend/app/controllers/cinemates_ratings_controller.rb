@@ -2,6 +2,11 @@ class CinematesRatingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_cinemates_rating, only: [:update]
 
+  def index
+    @ratings = current_user.cinemates_ratings
+    render json: @ratings
+  end
+
   def create
     unless Movie.exists?(cm_rating_params[:movie_id])
       render json: { code: 404, error: "Movie not found" }, status: :not_found

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_30_141625) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_31_073411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_30_141625) do
     t.index ["movie_id", "user_id"], name: "index_cinemates_ratings_on_movie_id_and_user_id", unique: true
     t.index ["movie_id"], name: "index_cinemates_ratings_on_movie_id"
     t.index ["user_id"], name: "index_cinemates_ratings_on_user_id"
+  end
+
+  create_table "cinemates_recommendations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "movie_id", null: false
+    t.boolean "cm_recommendation", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_cinemates_recommendations_on_movie_id"
+    t.index ["user_id"], name: "index_cinemates_recommendations_on_user_id"
   end
 
   create_table "movie_post_counts", force: :cascade do |t|
@@ -136,6 +146,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_30_141625) do
 
   add_foreign_key "cinemates_ratings", "movies"
   add_foreign_key "cinemates_ratings", "users"
+  add_foreign_key "cinemates_recommendations", "movies"
+  add_foreign_key "cinemates_recommendations", "users"
   add_foreign_key "movie_post_counts", "movies"
   add_foreign_key "post_comments", "posts"
   add_foreign_key "post_comments", "users"
