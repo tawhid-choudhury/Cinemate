@@ -107,7 +107,7 @@ class MoviesController < ApplicationController
                            .group('movies.id')
                            .order('COUNT(posts.id) DESC')
                            .select('movies.*, COUNT(posts.id) as post_count')
-                           # .limit(10)
+    # .limit(10)
 
     render json: { code: 200, message: "Trending movies fetched successfully", data: trending_movies }, status: :ok
   end

@@ -1,13 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users, path_names: {
-    sign_in: 'sign_in',
-    sign_out: 'sign_out',
-    registration: 'sign_up'
-  },controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations',
-    passwords: 'users/passwords'
-  }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -20,21 +11,23 @@ Rails.application.routes.draw do
 
   get '/status', to: proc { [200, { 'Content-Type' => 'application/json' }, [{ status: 'OK', code: 200 }.to_json]] }
 
-  ## All the routes for FE,
+  resources :users, only: [:create] do
+    collection do
+      put :update_by_uid
+    end
+  end
 
-  # routes for movies, today's featured movies, add to watchlist,
-  # top rated(cm rating), trending now
+  ## All the routes for FE,
+  
   resources :movies, only: [:create, :index] do
     collection do
       get :featured_today
       get :top_rated
       get :trending_now
     end
-    resources :watchlists, only: [:create]
   end
 
-  # routes for all the current user watchlists, remove movie from watchlists
-  resources :watchlists, only: [:index, :destroy]
+  resources :watchlists, only: [:index, :create, :destroy]
 
   # routes for all the posts, post creation
   resources :posts, only: [:index, :create] do
