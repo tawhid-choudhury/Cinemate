@@ -80,14 +80,36 @@ class MoviesController < ApplicationController
     movies_with_age = movies.map do |movie|
       {
         id: movie.id,
-        name: movie.title,
-        genres: movie.genre,
+        title: movie.title,
+        genre: movie.genre,
+        imdb_rating: movie.imdb_rating,
         age: movie.age,
         poster: movie.poster
       }
     end
 
     render json: movies_with_age, status: :ok
+  end
+
+  def top_rated
+    @top_rated_movies = Movie.order(avg_cm_rating: :desc)
+    render json: {
+      code: 200,
+      message: "Top rated movie fetched successfully",
+      data: @top_rated_movies
+    }, status: :ok
+  end
+
+  def trending_now
+    one_week_ago = 1.week.ago
+    trending_movies = Movie.joins(:posts)
+                           .where('posts.created_at >= ?', one_week_ago)
+                           .group('movies.id')
+                           .order('COUNT(posts.id) DESC')
+                           .select('movies.*, COUNT(posts.id) as post_count')
+    # .limit(10)
+
+    render json: { code: 200, message: "Trending movies fetched successfully", data: trending_movies }, status: :ok
   end
 
 end

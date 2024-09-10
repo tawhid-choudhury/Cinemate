@@ -1,13 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users, path_names: {
-    sign_in: 'sign_in',
-    sign_out: 'sign_out',
-    registration: 'sign_up'
-  },controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations',
-    passwords: 'users/passwords'
-  }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -19,13 +10,35 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   get '/status', to: proc { [200, { 'Content-Type' => 'application/json' }, [{ status: 'OK', code: 200 }.to_json]] }
-  # Defines the root path route ("/")
-  # root "posts#index"
+
+  resources :users, only: [:create] do
+    collection do
+      put :update_by_uid
+    end
+  end
+
+  ## All the routes for FE,
+  
   resources :movies, only: [:create, :index] do
     collection do
       get :featured_today
+      get :top_rated
+      get :trending_now
     end
-    resources :watchlists, only: [:create]
   end
-  resources :watchlists, only: [:index, :destroy]
+
+  resources :watchlists, only: [:index, :create, :destroy]
+
+  # routes for all the posts, post creation
+  resources :posts, only: [:index, :create] do
+    resources :post_comments, only: [:create]
+    member do
+      post :like_post
+      delete :dislike_post
+    end
+  end
+
+  # routes for all the cinemate rating creation and update
+  resources :cinemates_ratings, only: [:index, :create, :update]
+  resources :cinemates_recommendations, only: [:index, :create, :destroy]
 end

@@ -1,7 +1,7 @@
+# app/controllers/watchlists_controller.rb
 class WatchlistsController < ApplicationController
-
+  before_action :authenticate_user_by_token
   before_action :set_movie, only: [:create]
-  before_action :authenticate_user!
 
   def index
     @watchlists = current_user.watchlists.includes(:movie)
@@ -37,7 +37,39 @@ class WatchlistsController < ApplicationController
   end
 
   private
+
+  def authenticate_user_by_token
+    id_token = request.headers['Authorization']&.split(' ')&.last
+    if id_token
+      client = FirebaseTokenAuth.build
+      result = client.verify_id_token(id_token)
+      @current_user = User.find_by(uid: result.uid)
+    end
+
+    unless @current_user
+      render json: { error: 'Unauthorized' }, status: :unauthorized
+    end
+  rescue FirebaseTokenAuth::ValidationError => e
+    render json: { error: 'Unauthorized', message: 'Firebase ID token has expired.' }, status: :unauthorized
+  rescue FirebaseTokenAuth::Error => e
+    render json: { error: 'Unauthorized', message: e.message }, status: :unauthorized
+  rescue StandardError => e
+    render json: { error: 'Internal Server Error', message: e.message }, status: :internal_server_error
+  end
+
+  def current_user
+    @current_user
+  end
+
   def set_movie
-    @movie = Movie.find(params[:movie_id])
+    if params[:movie_id].blank?
+      render json: { error: 'movie_id is required' }, status: :bad_request
+      return
+    end
+
+    @movie = Movie.find_by(id: params[:movie_id])
+    unless @movie
+      render json: { error: 'Movie not found' }, status: :not_found
+    end
   end
 end
