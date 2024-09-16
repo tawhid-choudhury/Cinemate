@@ -103,6 +103,7 @@ GEM
     firebase_token_auth (1.5.1)
       google-apis-identitytoolkit_v3
       jwt
+    foreman (0.88.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-apis-core (0.15.1)
@@ -310,6 +311,7 @@ DEPENDENCIES
   debug
   dotenv
   firebase_token_auth
+  foreman (~> 0.88.1)
   httparty (~> 0.22.0)
   jsonapi-serializer
   letter_opener

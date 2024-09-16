@@ -46,3 +46,4 @@ gem "letter_opener", group: :development
 
 gem "httparty", "~> 0.22.0"
 gem 'firebase_token_auth'
+gem "foreman", "~> 0.88.1"
