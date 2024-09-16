@@ -27,7 +27,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :watchlists, only: [:index, :create, :destroy]
+  resources :watchlists, only: [:index, :create] do
+    collection do
+      delete :remove_from_watchlist
+    end
+  end
 
   # routes for all the posts, post creation
   resources :posts, only: [:index, :create] do

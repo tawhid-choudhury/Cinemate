@@ -25,8 +25,14 @@ class WatchlistsController < ApplicationController
     end
   end
 
-  def destroy
-    @watchlist = current_user.watchlists.find(params[:id])
+  def remove_from_watchlist
+    if params[:watch_list_id].blank?
+      render json: { error: 'watch_list_id is required' }, status: :bad_request
+      return
+    end
+
+    @watchlist = current_user.watchlists.find(params[:watch_list_id])
+
     if @watchlist.destroy
       render json: { message: "Movie removed from watchlist successfully" }, status: :ok
     else
